@@ -1,28 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import SearchBar from './components/SearchBar.js';
+import Content from './components/Content.js';
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            keyword: ''
+        }
+    }
+
+    onSearch(keyword) {
+        this.setState({ keyword });
+    }
+
+    onClickKeyword(keyword) {
+        console.log('onClickKeyword => ', keyword)
+        this.setState({ keyword })
+    }
+
+    render() {
+        return (
+            <div>
+                <header>
+                    <h2 className="container">검색</h2>
+                </header>
+
+                <div className="container">
+                    <SearchBar
+                        keyword={this.state.keyword}
+                        onSearchKeyword={(keyword) => this.onSearch(keyword)}
+                    />
+                    <Content
+                        keyword={this.state.keyword}
+                        onClickKeyword={(keyword) => this.onClickKeyword(keyword)}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
