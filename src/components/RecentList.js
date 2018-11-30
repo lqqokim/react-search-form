@@ -1,27 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const RecentList = ({ recentKeywords }) => {
-    console.log('RecentList => ', recentKeywords)
+class RecentList extends Component {
+    constructor(props) {
+        super(props);
 
-    const onClickRemoveBtn = () => {
-
+        this.state = {
+            recentKeywords: props.recentKeywords
+        };
     }
 
-    const list = recentKeywords.map((item, index) => {
-        return (
-            <li key={index}>
-                {item}
-                <span className="date">{item}</span>
-                <button 
-                    className="btn-remove"
-                    ></button>
-            </li>
-        )
-    });
+    componentWillReceiveProps(props) {
+        const { recentKeywords } = props;
+        this.setState({ recentKeywords });
+    }
 
-    return (
-        list
-    )
+    onClickRemoveBtn(item) {
+        const recentKeywords = this.props.recentKeywords.filter(keyword => keyword !== item);
+        this.props.updateRecentKeyword(recentKeywords);
+    }
+
+    render() {
+        const date = new Date();
+        const list = this.state.recentKeywords.map((item, index) => {
+            return (
+                <li key={index}>
+                    {item}
+                    <span className="date">{`${date.getMonth() + 1}.${date.getDate()}`}</span>
+                    <button
+                        className="btn-remove"
+                        onClick={() => this.onClickRemoveBtn(item)}
+                    ></button>
+                </li>
+            );
+        });
+
+        return (
+            list
+        )
+    }
 }
 
 export default RecentList;

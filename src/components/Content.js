@@ -38,7 +38,7 @@ class Content extends Component {
 
         this.setState({ recentKeywords: this.state.recentKeywords.concat(keyword) }
             , () => {
-                console.log('recentKeywords => ', this.state.recentKeywords);
+                // console.log('recentKeywords => ', this.state.recentKeywords);
             });
 
         this.setState({ selectedTab: this.tabName.RESULT });
@@ -105,6 +105,7 @@ class Content extends Component {
                     {this.state.selectedTab === this.tabName.RECENT &&
                         <RecentList
                             recentKeywords={this.state.recentKeywords}
+                            updateRecentKeyword={(recentKeywords) => this.setState({ recentKeywords })}
                         />
                     }
                     {this.state.selectedTab === this.tabName.RESULT &&
