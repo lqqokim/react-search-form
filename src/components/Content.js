@@ -30,47 +30,46 @@ class Content extends Component {
         }
     }
 
+    //Props 변경시에 호출
     componentWillReceiveProps({ keyword }) {
         if (!keyword.length) {
             this.setState({ selectedTab: this.tabName.RECOMMEND })
             return null;
         }
 
-        this.setState({ recentKeywords: this.state.recentKeywords.concat(keyword) }
-            , () => {
-                // console.log('recentKeywords => ', this.state.recentKeywords);
-            });
-
-        this.setState({ selectedTab: this.tabName.RESULT });
-        this.getSearchResult(keyword);
-
+        this.setState({
+            recentKeywords: this.state.recentKeywords.concat(keyword),
+            selectedTab: this.tabName.RESULT
+        }, () => {
+            this.getSearchResult(keyword);
+        });
     }
 
     componentDidMount() {
         this.getRecommendKeywords();
     }
 
-    getSearchResult(keyword) {
+    getSearchResult = (keyword) => {
         SearchModel.list()
             .then(searchResult => this.setState({ searchResult }));
     }
 
-    getRecommendKeywords() {
+    getRecommendKeywords = () => {
         KeywordModel.list()
             .then(recommendKeywords => this.setState({ recommendKeywords }));
     }
 
-    onClickTab(selectedTab) {
+    onClickTab = (selectedTab) => {
         this.setState({ selectedTab });
     }
 
-    onClickKeyword(keyword) {
+    onClickKeyword = (keyword) => {
         this.setState({ selectedTab: this.tabName.RESULT });
         this.props.onClickKeyword(keyword);
         this.getSearchResult(keyword);
     }
 
-    activeTab() {
+    activeTab = () => {
         if (this.state.selectedTab === this.tabName.RECENT) {
             this.recentTab = 'active';
             this.recommendTab = '';
@@ -88,28 +87,29 @@ class Content extends Component {
                 {this.state.selectedTab !== this.tabName.RESULT &&
                     <ul id="tabs" className="tabs">
                         <li className={this.recommendTab}
-                            onClick={() => this.onClickTab(this.tabName.RECOMMEND)}
+                            onClick={() => this.setState({ selectedTab: this.tabName.RECOMMEND })}
                         >추천 검색어</li>
                         <li className={this.recentTab}
-                            onClick={() => this.onClickTab(this.tabName.RECENT)}
+                            onClick={() => this.setState({ selectedTab: this.tabName.RECENT })}
                         >최근 검색어</li>
                     </ul>
                 }
                 <ul className="list">
                     {this.state.selectedTab === this.tabName.RECOMMEND &&
-                        <RecommendList
+                        <RecommendList //추천 검색어
                             list={this.state.recommendKeywords}
-                            onClickKeyword={(keyword) => this.onClickKeyword(keyword)}
+                            onClickKeyword={this.onClickKeyword}
                         />
                     }
                     {this.state.selectedTab === this.tabName.RECENT &&
-                        <RecentList
+                        <RecentList //최근 검색어
                             recentKeywords={this.state.recentKeywords}
                             updateRecentKeyword={(recentKeywords) => this.setState({ recentKeywords })}
+                            onClickKeyword={this.onClickKeyword}
                         />
                     }
                     {this.state.selectedTab === this.tabName.RESULT &&
-                        <SearchResult
+                        <SearchResult //검색 결과
                             list={this.state.searchResult}
                         />
                     }

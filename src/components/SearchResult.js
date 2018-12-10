@@ -4,7 +4,7 @@ const SearchResult = ({ list }) => {
     const searchResultList = list.map((item, index) => {
         return (
             <li key={index}>
-                <img src={item.image} />
+                <img src={item.image} alt={""}/>
                 <p>{item.name}</p>
             </li>
         )

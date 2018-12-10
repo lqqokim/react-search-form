@@ -13,12 +13,11 @@ class App extends Component {
         }
     }
 
-    onSearch(keyword) {
+    onSearchKeyword = (keyword) => {
         this.setState({ keyword });
     }
 
-    onClickKeyword(keyword) {
-        console.log('onClickKeyword => ', keyword)
+    onClickKeyword = (keyword) =>  {
         this.setState({ keyword })
     }
 
@@ -30,13 +29,13 @@ class App extends Component {
                 </header>
 
                 <div className="container">
-                    <SearchBar
+                    <SearchBar //검색폼
                         keyword={this.state.keyword}
-                        onSearchKeyword={(keyword) => this.onSearch(keyword)}
+                        onSearchKeyword={this.onSearchKeyword}
                     />
-                    <Content
+                    <Content //추천검색, 최근검색, 검색결과
                         keyword={this.state.keyword}
-                        onClickKeyword={(keyword) => this.onClickKeyword(keyword)}
+                        onClickKeyword={this.onClickKeyword}
                     />
                 </div>
             </div>

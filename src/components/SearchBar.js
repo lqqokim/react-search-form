@@ -9,6 +9,7 @@ class SearchBar extends Component {
         }
     }
 
+    //Props 변경시 호출
     componentWillReceiveProps({ keyword }) {
         this.setState({ keyword });
     }
@@ -22,7 +23,7 @@ class SearchBar extends Component {
         this.setState({ keyword: event.target.value });
     }
 
-    onClickRemoveBtn() {
+    onClickRemoveBtn = () => {
         this.setState({ keyword: '' });
         this.props.onSearchKeyword('');
     }
@@ -33,8 +34,8 @@ class SearchBar extends Component {
                 <input
                     value={this.state.keyword}
                     type="text"
-                    onKeyUp={event => this.onKeyUpInput(event)}
-                    onChange={event => this.onChangeInput(event)}
+                    onKeyUp={this.onKeyUpInput}
+                    onChange={this.onChangeInput}
                     placeholder="검색어를 입력하세요"
                     autoFocus
                 />
@@ -43,7 +44,7 @@ class SearchBar extends Component {
                         <button
                             type="reset"
                             className="btn-reset"
-                            onClick={() => this.onClickRemoveBtn()}
+                            onClick={this.onClickRemoveBtn}
                         ></button>
                     ) : null
                 }
