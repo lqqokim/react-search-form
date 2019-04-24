@@ -1,9 +1,9 @@
 export default {
   data: [
-    {keyword: '이탈리아'}, 
-    {keyword: '세프의요리'}, 
-    {keyword: '제철'}, 
-    {keyword: '홈파티'}
+    {keyword: '인기동물'}, 
+    {keyword: '귀여운 이미지'}, 
+    {keyword: '강아지'}, 
+    {keyword: '고양이'}
   ],
 
   list() {

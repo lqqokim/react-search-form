@@ -1,6 +1,7 @@
 import React from 'react';
 
 const SearchResult = ({ list }) => {
+    console.log(list)
     const searchResultList = list.map((item, index) => {
         return (
             <li key={index}>

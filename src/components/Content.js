@@ -5,7 +5,7 @@ import KeywordModel from '../models/KeywordModel';
 import SearchModel from './../models/SearchModel';
 
 //Component
-import RecommendList from './RecommedList';
+import RecommendList from './RecommendList';
 import RecentList from './RecentList';
 import SearchResult from './SearchResult';
 

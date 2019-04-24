@@ -1,3 +1,8 @@
+# ReactJS 검색폼 구현
+
+## Screenshots
+<img src="./src/assets/images/screen.gif" width="250">
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
